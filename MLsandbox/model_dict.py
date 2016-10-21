@@ -12,7 +12,7 @@ import numpy as np
 from sklearn import grid_search
 from scipy.stats import randint as sp_randint
 import matplotlib.pyplot as plt
-
+from collections import defaultdict
 
 from sklearn.externals import joblib
 
@@ -268,4 +268,13 @@ def success_breakdown(df, by_column='', nan_breakdown=False):
     print '\n'
     return df_good, df_test
 
+def print_data_types(df):
+    d= df.dtypes.to_dict()
+    v = defaultdict(list)
+
+    for key, value in sorted(d.iteritems()):
+        v[value].append(key)
+
+    for key, item in v.iteritems():
+        print str(key) + ':   ', item, '\n'
 
