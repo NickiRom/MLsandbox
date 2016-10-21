@@ -12,7 +12,7 @@ setup(name='MLsandbox',
 	author='Nicole H. Romano', 
 	author_email='romano.nh@gmail.com',
 	packages=['MLsandbox'],
-	install_requires=['pandas', 'sklearn', 'numpy', 'scipy', 'matplotlib', 'knnimpute'],
+	install_requires=['pandas', 'sklearn', 'numpy', 'scipy', 'matplotlib', 'notebook'],
 	include_package_data=True,
 	zip_safe=False)
 
