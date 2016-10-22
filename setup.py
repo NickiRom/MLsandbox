@@ -6,7 +6,7 @@ def readme():
 		return f.read()
 
 setup(name='MLsandbox', 
-	verion='0.1',
+	version='0.1',
 	description='tools to learn ML algorithms in a jupyter notebook environment',
 	url='http://github.com/nickirom/MLsandbox',
 	author='Nicole H. Romano', 
