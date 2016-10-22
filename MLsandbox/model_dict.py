@@ -1,7 +1,6 @@
 
 # coding: utf-8
 
-# In[1]:
 import os
 import pandas as pd
 from sklearn import cross_validation as cv
@@ -277,4 +276,5 @@ def print_data_types(df):
 
     for key, item in v.iteritems():
         print str(key) + ':   ', item, '\n'
+
 
