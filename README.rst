@@ -12,8 +12,11 @@ To install, do the following in commandline:
 
    $ cd MLsandbox
 
-3. set up virtual environment within MLsandbox (if virtualenv is not yet installed, start with pip install virtualenv)
-   
+3. set up virtual environment within MLsandbox 
+
+   - if virtualenv is not yet installed, start with pip install virtualenv
+   - if virtualenv is giving an error, see bottom of README for alternate option
+
    $ virtualenv venv
 
 4. start virtual environment
