@@ -12,13 +12,24 @@ To install, do the following in commandline:
 
    $ cd MLsandbox
 
-3. install the package and its dependencies
+3. set up virtual environment within MLsandbox (if virtualenv is not yet installed, start with pip install virtualenv)
+   
+   $ virtualenv venv
+
+4. start virtual environment
+   
+   $ source venv/bin/activate
+
+5. install the package and its dependencies
 
    $ pip install .
 
-4. start exploring notebooks!
+6. start exploring notebooks!
 
    $ cd MLsandbox/notebooks/
 
    $ jupyter notebook
 
+7. when finished, deactivate the virtual environment
+ 
+   $ deactivate
