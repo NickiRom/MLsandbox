@@ -12,9 +12,8 @@ from sklearn import grid_search
 from scipy.stats import randint as sp_randint
 import matplotlib.pyplot as plt
 from collections import defaultdict
-
 from sklearn.externals import joblib
-
+from IPython.display import display, Markdown, Latex 
 import glob
 
 class ModelDict(object):
@@ -267,14 +266,76 @@ def success_breakdown(df, by_column='', nan_breakdown=False):
     print '\n'
     return df_good, df_test
 
-def print_data_types(df):
+def print_features_by_type(features_dict):
+
+    for key, item in features_dict.iteritems():
+        display(Markdown('**{0}:** {1}'.format(key, ', '.join(item))))
+        
+        # commented out the line below to use Markdown instead:
+        # print str(key) + ':   ', item, '\n'
+
+def infer_data_types(df):
+    #############################
+    # using the data types specified by pandas, infer the data type of each feature column
+    # df: a pandas dataframe
+    #############################
+    
     d= df.dtypes.to_dict()
-    v = defaultdict(list)
+    features_dict = defaultdict(list)
 
+    # currently, the dict is organized with the feature name as the key and data type as the value.
+    # Switch keys/values and group by key (data type)
     for key, value in sorted(d.iteritems()):
-        v[value].append(key)
+        features_dict[str(value)].append(str(key))
+   
+    # change data type names that are non-intuitive to feature data type names 
+    features_dict['categorical'] = features_dict.pop('object')
+    features_dict['discrete'] = features_dict.pop('int64')
+    features_dict['continuous'] = features_dict.pop('float64')
 
-    for key, item in v.iteritems():
-        print str(key) + ':   ', item, '\n'
+    print_features_by_type(features_dict)
+
+    return features_dict
+
+def specify_ordinal(features_dict, ordinal_features):
+    ##############################
+    #for the features_dict returned in print_data_types(df), you will sometimes want to separate discrete 
+    # features from ordinal features.  since this cannot be inferred directly from the data, you have
+    # to specify the features that are to be treated as ordinal.
+    #
+    # features_dict: dictionary of feature names by their data types. a 'discrete' key must be present.
+    # list_of_features: the feature names in features_dict['discrete'] that should be moved to 'ordinal'
+    ##############################
+
+    features_dict['ordinal'] = [x for x in features_dict['discrete'] if x in ordinal_features]
+    features_dict['discrete'] = [x for x in features_dict['discrete'] if x not in ordinal_features]
+
+    if len([x for x in ordinal_features if (x not in features_dict['discrete']) & (x not in features_dict['ordinal'])]) > 0:
+        print "the following features were not found: "
+        print  [x for x in ordinal_features if (x not in features_dict['discrete']) & (x not in features_dict['ordinal'])]
+    
+    print_features_by_type(features_dict)
+
+    return features_dict 
 
 
+def specify_categorical(features_dict, categorical_features):
+    ##############################
+    #for the features_dict returned in print_data_types(df), you will sometimes want to separate discrete 
+    # features from categorical features.  Since this cannot be inferred directly from the data, you have
+    # to specify the features that are to be treated as categorical.
+    #
+    # features_dict: dictionary of feature names by their data types. A 'discrete' key must be present.
+    # list_of_features: the feature names in features_dict['discrete'] that should be moved to 'categorical'
+    ##############################
+
+    features_dict['categorical'].extend( [x for x in features_dict['discrete'] if x in categorical_features])
+    features_dict['discrete'] = [x for x in features_dict['discrete'] if x not in categorical_features]
+
+    if len([x for x in categorical_features if (x not in features_dict['discrete']) & (x not in features_dict['categorical'])]) > 0:
+        print "the following features were not found: "
+        print  [x for x in categorical_features if (x not in features_dict['discrete']) & (x not in features_dict['categorical'])]
+    
+    print_features_by_type(features_dict)
+
+    return features_dict 
