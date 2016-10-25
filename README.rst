@@ -6,7 +6,7 @@ To install, do the following in commandline:
 
 1. clone MLsandbox on your local machine:
 
-   $ git clone git@github.com:NickiRom/MLsandbox.git 
+   $ git clone https://github.com/NickiRom/MLsandbox 
 
 2. navigate to MLsandbox/
 
