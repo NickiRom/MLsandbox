@@ -37,9 +37,9 @@ To install, do the following in commandline:
  
    $ deactivate
 
+# Gotchas:
 
-
-** If virtualenv venv command gives the following error: **
+## ** If virtualenv venv command gives the following error: **
 
 	OSError: ... setuptools pip wheel failed with error code 1
 
@@ -49,3 +49,10 @@ Then please use a virtual environment from conda instead: [https://uoa-eresearch
 2. $ source activate yourenvname
 3. $ pip install .
 
+## If you're unable to import MLsandbox:
+
+1. check that you've opened jupyter notebook from within a virtual environment
+2. check MLsandbox/venv/lib/python2.7/site-packages/ for the MLsandbox package
+3. cd to MLsandbox/ and run the following command:
+        $ python -m pip install --upgrade .
+        
