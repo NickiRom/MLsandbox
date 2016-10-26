@@ -1,4 +1,6 @@
 
 include README.rst
 include MLsandbox/data/sample_data.csv
+include MLsandbox/figures/*
+include MLsandbox/images/*
 
